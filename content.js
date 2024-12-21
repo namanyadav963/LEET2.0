@@ -134,18 +134,24 @@ function tryInitializeExtension(retries = 5, interval = 1000) {
 
 // Initialize the extension
 function initializeExtension() {
+    console.log('Initializing extension...');
     const targetNode = document.querySelector('.editor-container') || 
-                      document.querySelector('[data-cy="question-detail"]');
+    document.querySelector('[data-cy="problem-description"]');
     
-    if (targetNode && !document.getElementById('ai-hint-button')) {
-        const button = createHintButton();
-        targetNode.appendChild(button);
-        console.log('Hint button injected');
-        return true;
+    if (targetNode) {
+        console.log('Target node found:', targetNode);
+        if (!document.getElementById('ai-hint-button')) {
+            const button = createHintButton();
+            targetNode.appendChild(button);
+            console.log('Hint button injected');
+            return true;
+        } else {
+            console.log('Hint button already injected');
+        }
     } else {
-        console.log('Target node not found or button already injected');
-        return false;
+        console.log('Target node not found');
     }
+    return false;
 }
 
 // Check if the page is loaded
